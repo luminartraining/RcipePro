@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 from users.models import Profile
 from .forms import UserRegistrationForm,LoginForm,ProfileCreateForm
+from recipes.models import Recipe
 def register(request):
     form=UserRegistrationForm()
     context={}
@@ -17,27 +18,29 @@ def register(request):
 
 
 def signIn(request):
-    form=LoginForm()
-    context={}
-    context["form"]=form
+
+
     if request.method=="POST":
-        form=LoginForm(request.POST)
-        if form.is_valid():
-            username=form.cleaned_data.get("username")
-            password=form.cleaned_data.get("password")
-            user=authenticate(request,username=username,password=password)
-            if user:
-                login(request,user)
 
-                return redirect("home")
-            else:
 
-                return render(request, "users/login.html", context)
-    return render(request,"users/login.html",context)
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        user=authenticate(request,username=username,password=password)
+        if user:
+            login(request,user)
+
+            return redirect("home")
+        else:
+
+            return render(request, "users/userlogin.html")
+    return render(request,"users/userlogin.html")
 
 
 def home(request):
-    return render(request, "users/home.html")
+    context={}
+    recipes=Recipe.objects.all()
+    context["recipes"]=recipes
+    return render(request, "users/userhome.html",context)
 
 def singOut(request):
     logout(request)
