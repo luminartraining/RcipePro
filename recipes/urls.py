@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
+from recipes.views import create_recipe,list_my_recipes,edit_recipe,view_recipe,delete_recipe
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path("create",create_recipe,name="createrecipe"),
+    path("listrecipe",list_my_recipes,name="listmyrecipes"),
+    path("edit/<int:id>",edit_recipe,name="edit"),
+    path("view/<int:id>",view_recipe,name="view"),
+    path("delete/<int:id>",delete_recipe,name="delete")
 ]

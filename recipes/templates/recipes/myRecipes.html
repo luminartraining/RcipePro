@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        {%for recipe in  recipes%}
+        <div class="col-3">
+
+<!--            card start-->
+            <div class="card" style="width: 18rem;">
+            <img src="{{recipe.recipe_img.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                    <h5 class="card-title">{{recipe.recipe_name}}</h5>
+                     <a href="{%url 'view' recipe.id%}" class="btn btn-primary">View</a>
+                    <a href="{%url 'edit' recipe.id%}" class="btn btn-success">Edit</a>
+                <a href="{%url 'delete' recipe.id%}" class="btn btn-danger">Delete</a>
+            </div>
+            </div>
+
+<!--            caerd  end-->
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+</html>

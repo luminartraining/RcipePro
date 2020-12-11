@@ -63,7 +63,7 @@ def create_profile(request):
 
 def edit_profile(request):
     user=Profile.objects.get(user=request.user)
-    form=ProfileCreateForm(instance=user)
+    form=ProfileCreateForm(initial={"user":request.user},instance=user)
     context={}
     context["form"]=form
     if request.method=="POST":
@@ -82,7 +82,7 @@ def edit_profile(request):
 def view_profile(request):
     user = Profile.objects.get(user=request.user)
     context={}
-    context["user"]=user
+    context["users"]=user
     return render(request,"users/viewprofile.html",context)
 
 
